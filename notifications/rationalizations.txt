@@ -1,0 +1,22 @@
+Rationalizations:
+1. Authentication for writes:
+For the sake of not-overcomplicating the design I chose not to authenticate users before performing writes. That wouldn't fly in production.
+In the real world I would rather omit those api calls entirely than leave them unprotected.
+2. Structure of the notifications:
+I chose not to normalize out the identity of the author/editor of notifications but I would probably do that in a real-world situation. The exception would be if we care more about the e-mail address at the time of the notification than the current e-mail address of the author/editor. If that was the case we could leave that column in the notifications relation for auditing purposes but have it normalized out in a  user relation as well.
+
+Other than that, the structure of the data for this test was pretty simple and didn't have much relationality, so sticking to a simple single table seemed like the efficient way to go
+3. URL scheme:
+I chose to 'namespace' the notifications API under the assumption that this service will probably exist alongside other services, so starting off by putting it all under the notification url looked best.
+4. JSON data map:
+This is all handled via the datamapper gem[s]. This can be configured to leverage a number of backend storage systems. For this example I chose sqlite for its ease of deployment.
+5. Spec justification:
+All arguments for updates are optional. Any attributes specified will be updated and the updated record will be returned so the  client may see a snapshot of the data that resulted from the update it requested to perform.
+Create operations return the newly created record's url in the response headers to be consistent with RESTfulness
+Clients have the option of including a client-side callback that would be included in the response, allowing clients to handle responses via whatever mechanism they find most fit without having to keep a client-side mapping of requests->handlers. The down side of this decision is that it allowsi/encourages the client to be foolish and execute potentially bad/malicious code in the event of a MitM attack. I would include a warning in the API doc suggesting clients keep a whitelist of allowed callbacks.
+A convenience url to return all notifications was included since that method was named separately in the spec. This demonstrates the priority I place on correctly emphasizing functionality as per the spec.
+
+6. Unit tests:
+This example code includes 9 test cases with 49 assertions, 80+% code coverage.  I'd like to get the coverage up a bit more, but I think since tests are considered a "bonus" (via the specified requirements), it'd be better not to focus too much on that.
+
+

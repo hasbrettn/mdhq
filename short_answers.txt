@@ -1,0 +1,20 @@
+1. O(n) refers to the upper bound of the worst case complexity for an algorithm, specically that in this example the worst case is “linear”. For any number of inputs ”n”, the algorithm will take at most “n” steps or “n * c” steps (where c is an arbitrary coefficient) to complete.
+
+If an algorithm is O(n^2 ) that means that in the worst case scenario given any number of inputs “n”, the agorithm will take “n * n * c” steps to complete (where c is an arbitrary coefficient again).
+
+2. Quick Sort is an O(n^2) algorithm but in most cases is more efficient than other algorithms with better worst-case complexity. In Quick Sort a value (called the “pivot”) is picked and the values are re-organized so that all higher values are on one side and all lower valiues are on the other. 
+
+The operation is applied recursively to each side.
+
+3. A pointer in C is a numeric value storing the memory location of a data structure (even if that structure is just a primitive).
+
+4. Stack Vs. Heap memory
+Important distinctions between heap and stack memory are:
+	A. Stack memory is thread-exclusive while mean memory is shared among threads. This makes the use of stack memory a great weapon in preventing deadlocks.
+	B. Stack memory is used for local variables within a function (structs, arrays, primitives, all of them) and expression-temporaries (the intermidate values in complicated formulas) while heap memory remains allocated until it is released, regardless of function scope.
+	C. Use of stack memory is almost always faster than heap memory because of how simply stack memory is allocated
+	D. It is easy to grow the heap when you need more memory but not so simple in the stack's case.
+
+5. A Garbage Collector is used to manage heap memory in an attempt to eliminate memory leaks. What it actually does in implementation is make your program incredibly hard to profile (since you don't know when GC will trigger or how long it will take when it does), and hard to make real-time guarantees for. 
+
+Garbage collection isn't magic: the programmer still needs to null-out references to objects within collections/arrays and still needs to remember to call an object's destroy() or cleanUp() functions manually at the end of the object's life.
