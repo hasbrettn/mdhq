@@ -8,6 +8,5 @@ Answers/code for Tune interview
         $ sh start.sh
 
 ### Running the tests
-After running the above commands to download the code and install gems with bundler:
-	$ sh test.sh
+You'll need to run the above commands first in order to get your gems downloaded and configured properly. Afterwards just run test.sh to run the tests.
         
